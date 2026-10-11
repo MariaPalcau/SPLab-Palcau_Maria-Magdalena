@@ -1,12 +1,22 @@
 public class Paragraph implements Element {
     private String text;
+    private AlignStrategy alignment;
 
     public Paragraph(String text){
         this.text = text;
+        this.alignment = new AlignLeft();
     }
 
     @Override
     public void print(){
-        System.out.println("Paragraph: " + text);
+        alignment.render(this);
+    }
+
+    public String getText(){
+        return text;
+    }
+
+    public void setAlignStrategy(AlignStrategy as){
+        this.alignment = as;
     }
 }
