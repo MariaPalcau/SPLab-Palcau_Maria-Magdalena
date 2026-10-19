@@ -8,7 +8,7 @@ public class Paragraph implements Element {
     }
 
     @Override
-    public void print(){
+    public void render(){
         alignment.render(this);
     }
 
@@ -18,5 +18,10 @@ public class Paragraph implements Element {
 
     public void setAlignStrategy(AlignStrategy as){
         this.alignment = as;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }

@@ -1,25 +1,27 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book {
-    private String title;
+public class Book extends Section{
     private List<Author> authors;
-    private List<Element> elements;
 
     public Book(String title){
-        this.title = title;
+        super(title);
         this.authors = new ArrayList<>();
-        this.elements = new ArrayList<>();
     }
 
-    public void print(){
-        System.out.println("Book: " + title);
+    public void render(){
+        super.render();
         System.out.println("Authors: ");
         for (Author a: authors) {
             a.print();
         }
-        for (Element e: elements) {
-            e.print();
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+        for (Element e: getElements()) {
+            e.accept(v);
         }
     }
 
@@ -27,7 +29,7 @@ public class Book {
         authors.add(a);
     }
 
-    public void addContent(Element e) {
-        elements.add(e);
+    public List<Author> getAuthors(){
+        return authors;
     }
 }

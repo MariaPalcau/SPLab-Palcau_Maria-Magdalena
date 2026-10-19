@@ -1,5 +1,5 @@
 interface Element {
-    void print();
+    void render();
     default void add(Element e){
         throw new UnsupportedOperationException();
     }
@@ -9,4 +9,5 @@ interface Element {
     default Element get(int i){
         throw new UnsupportedOperationException();
     }
+    void accept(Visitor v);
 }
