@@ -1,3 +1,5 @@
+package com.example.demo.data;
+
 interface Visitor {
     default void visit(Book b){}
     default void visit(Section s){}

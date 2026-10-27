@@ -1,3 +1,5 @@
+package com.example.demo.data;
+
 interface Element {
     void render();
     default void add(Element e){

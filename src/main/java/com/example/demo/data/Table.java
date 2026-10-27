@@ -1,3 +1,5 @@
+package com.example.demo.data;
+
 public class Table implements Element {
     private String name;
 

@@ -1,3 +1,5 @@
+package com.example.demo.data;
+
 public class RenderContentVisitor implements Visitor{
     @Override
     public void visit(Book b){

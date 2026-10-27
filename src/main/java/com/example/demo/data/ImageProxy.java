@@ -1,3 +1,5 @@
+package com.example.demo.data;
+
 public class ImageProxy implements Element {
     private String url;
     private Image realImage;

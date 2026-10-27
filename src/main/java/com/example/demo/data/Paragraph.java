@@ -1,3 +1,5 @@
+package com.example.demo.data;
+
 public class Paragraph implements Element {
     private String text;
     private AlignStrategy alignment;
