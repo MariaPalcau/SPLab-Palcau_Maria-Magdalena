@@ -1,4 +1,7 @@
+package com.example.demo.model;
+
 public class Table implements Element {
+    private Long id;
     private String name;
 
     public Table(String name){

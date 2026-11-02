@@ -1,3 +1,5 @@
+package com.example.demo.model;
+
 import java.util.concurrent.TimeUnit;
 
 public class Image implements Element {

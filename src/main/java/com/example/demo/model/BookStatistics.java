@@ -1,10 +1,12 @@
+package com.example.demo.model;
+
 public class BookStatistics implements Visitor{
     private int sections = 0;
     private int paragraphs = 0;
     private int images = 0;
     private int tables = 0;
     public void printStatistics(){
-        System.out.println("Book statistics:");
+        System.out.println("com.example.demo.data.Book statistics:");
         System.out.println("*** Number of images: " + images);
         System.out.println("*** Number of paragraphs: " + paragraphs);
         System.out.println("*** Number of tables: " + tables);

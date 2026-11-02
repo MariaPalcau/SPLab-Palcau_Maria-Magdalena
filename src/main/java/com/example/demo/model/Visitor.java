@@ -1,3 +1,5 @@
+package com.example.demo.model;
+
 interface Visitor {
     default void visit(Book b){}
     default void visit(Section s){}
@@ -6,4 +8,5 @@ interface Visitor {
     default void visit(ImageProxy ip){}
     default void visit(Image i){}
     default void visit(Table t){}
+    default void visit(BaseElement be){}
 }

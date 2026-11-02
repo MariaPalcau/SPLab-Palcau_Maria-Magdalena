@@ -1,9 +1,12 @@
+package com.example.demo.model;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Book extends Section{
     private List<Author> authors;
 
+    public Book() {}
     public Book(String title){
         super(title);
         this.authors = new ArrayList<>();

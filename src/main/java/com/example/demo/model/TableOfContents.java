@@ -1,4 +1,7 @@
+package com.example.demo.model;
+
 public class TableOfContents implements Element {
+    private Long id;
     private String content;
 
     public TableOfContents(String content){

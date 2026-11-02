@@ -1,10 +1,14 @@
+package com.example.demo.model;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Section implements Element {
+    private Long id;
     private String title;
     private List<Element> elements;
 
+    public Section(){}
     public Section(String title){
         this.title = title;
         this.elements = new ArrayList<>();
@@ -36,6 +40,14 @@ public class Section implements Element {
 
     public String getTitle(){
         return title;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

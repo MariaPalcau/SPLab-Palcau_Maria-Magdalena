@@ -1,3 +1,5 @@
+package com.example.demo.model;
+
 public class AlignCenter implements AlignStrategy {
     @Override
     public void render(Paragraph p){

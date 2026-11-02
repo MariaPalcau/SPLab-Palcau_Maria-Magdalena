@@ -1,4 +1,7 @@
+package com.example.demo.model;
+
 public class Paragraph implements Element {
+    private Long id;
     private String text;
     private AlignStrategy alignment;
 
