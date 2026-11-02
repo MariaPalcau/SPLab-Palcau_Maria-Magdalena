@@ -1,6 +1,7 @@
-package com.example.demo.data;
+package com.example.demo.model;
 
 public class Author {
+    private Long id;
     private String name;
     private String surname;
 
@@ -10,6 +11,6 @@ public class Author {
     }
 
     public void print(){
-        System.out.println("com.example.demo.data.Author: " + name + " " + surname);
+        System.out.println("Author: " + name + " " + surname);
     }
 }

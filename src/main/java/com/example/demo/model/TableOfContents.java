@@ -1,6 +1,7 @@
-package com.example.demo.data;
+package com.example.demo.model;
 
 public class TableOfContents implements Element {
+    private Long id;
     private String content;
 
     public TableOfContents(String content){
@@ -8,7 +9,7 @@ public class TableOfContents implements Element {
     }
     @Override
     public void render(){
-        System.out.println("com.example.demo.data.Table of Contents: ");
+        System.out.println("Table of Contents: ");
         System.out.println(content);
     }
     @Override

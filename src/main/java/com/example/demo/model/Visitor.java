@@ -1,4 +1,4 @@
-package com.example.demo.data;
+package com.example.demo.model;
 
 interface Visitor {
     default void visit(Book b){}
@@ -8,4 +8,5 @@ interface Visitor {
     default void visit(ImageProxy ip){}
     default void visit(Image i){}
     default void visit(Table t){}
+    default void visit(BaseElement be){}
 }

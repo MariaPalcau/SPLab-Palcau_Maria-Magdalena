@@ -1,4 +1,4 @@
-package com.example.demo.data;
+package com.example.demo.model;
 
 public class AlignLeft implements AlignStrategy {
     @Override

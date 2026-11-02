@@ -1,7 +1,9 @@
-package com.example.demo.data;
+package com.example.demo.model;
 
 interface Element {
-    void render();
+    default void render(){
+        throw new UnsupportedOperationException();
+    }
     default void add(Element e){
         throw new UnsupportedOperationException();
     }

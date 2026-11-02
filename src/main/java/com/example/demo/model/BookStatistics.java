@@ -1,4 +1,4 @@
-package com.example.demo.data;
+package com.example.demo.model;
 
 public class BookStatistics implements Visitor{
     private int sections = 0;
