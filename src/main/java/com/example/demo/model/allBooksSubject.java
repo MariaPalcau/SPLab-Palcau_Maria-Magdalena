@@ -23,7 +23,6 @@ public class allBooksSubject implements Subject {
     @Override
     public void registerObserver(Observer observer) {
         observers.add(observer);
-        System.out.println("REGISTERED, total = " + observers.size());
     }
 
     @Override
@@ -33,12 +32,10 @@ public class allBooksSubject implements Subject {
 
     @Override
     public void notifyObservers() {
-        System.out.println("NOTIFY, observers = " + observers.size() + ", book = " + lastBook);
         Book book = lastBook;
         for (Observer observer : observers) {
             try{
                 observer.update(book);
-                System.out.println("SENT ok");
             } catch (IOException | IllegalStateException e) {
                 e.printStackTrace();
                 unregisterObserver(observer);
