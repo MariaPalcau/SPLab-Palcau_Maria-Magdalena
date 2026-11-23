@@ -1,17 +1,20 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Section implements Element {
-    private Long id;
+@Entity
+@NoArgsConstructor
+public class Section extends BaseElement {
     private String title;
-    private List<Element> elements;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<BaseElement> elements = new ArrayList<>();
 
-    public Section(){}
     public Section(String title){
         this.title = title;
-        this.elements = new ArrayList<>();
     }
 
     @Override
@@ -21,7 +24,7 @@ public class Section implements Element {
 
     @Override
     public void add(Element e){
-        elements.add(e);
+        elements.add( (BaseElement) e);
     }
 
     @Override
@@ -34,7 +37,7 @@ public class Section implements Element {
         return elements.get(index);
     }
 
-    public List<Element> getElements() {
+    public List<BaseElement> getElements() {
         return elements;
     }
 
@@ -42,12 +45,8 @@ public class Section implements Element {
         return title;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override

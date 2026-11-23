@@ -1,8 +1,14 @@
 package com.example.demo.model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
+
 import java.util.concurrent.TimeUnit;
 
-public class Image implements Element {
+@Entity
+@NoArgsConstructor
+public class Image extends BaseElement {
     private String url;
 
     public Image(String url){

@@ -1,18 +1,25 @@
 package com.example.demo.commands;
 
 import com.example.demo.model.Book;
+import com.example.demo.persistence.BooksRepository;
 import com.example.demo.services.BooksService;
 
 public class AddBookCommand implements Command{
-    private BooksService bs;
-    private Book b;
+    private final CommandContext context;
+    private final Book book;
+    private Book createdBook;
 
-    public AddBookCommand(BooksService bs, Book b){
-        this.bs = bs;
-        this.b = b;
+    public AddBookCommand(CommandContext context, Book book) {
+        this.context = context;
+        this.book = book;
     }
+
     @Override
-    public void execute(){
-        bs.createBook(b);
+    public void execute() {
+        createdBook = context.getBooksRepository().save(book);
+    }
+
+    public Book getCreatedBook() {
+        return createdBook;
     }
 }

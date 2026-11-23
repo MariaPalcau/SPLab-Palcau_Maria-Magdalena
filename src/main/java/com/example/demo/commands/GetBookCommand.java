@@ -1,17 +1,24 @@
 package com.example.demo.commands;
 
-import com.example.demo.services.BooksService;
+import com.example.demo.model.Book;
+
+import java.util.Optional;
 
 public class GetBookCommand implements Command {
-    private BooksService bs;
+    private CommandContext c;
+    private Optional<Book> book;
     private Long id;
 
-    public GetBookCommand(BooksService bs, Long id){
-        this.bs = bs;
+    public GetBookCommand(CommandContext c, Long id){
+        this.c = c;
         this.id = id;
     }
     @Override
     public void execute(){
-        bs.getBook(id);
+        book = c.getBooksRepository().findById(id);
+    }
+
+    public Optional<Book> getBook(){
+        return book;
     }
 }

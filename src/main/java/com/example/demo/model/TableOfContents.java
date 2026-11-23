@@ -1,6 +1,12 @@
 package com.example.demo.model;
 
-public class TableOfContents implements Element {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+public class TableOfContents extends BaseElement {
     private Long id;
     private String content;
 
