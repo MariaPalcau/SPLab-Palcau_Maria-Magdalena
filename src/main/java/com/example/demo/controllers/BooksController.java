@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 import com.example.demo.commands.*;
 import com.example.demo.model.Book;
+import com.example.demo.model.allBooksSubject;
 import com.example.demo.persistence.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,12 @@ import java.util.Optional;
 public class BooksController {
     private final CommandContext context;
     private Invoker inv;
+    private final allBooksSubject abs;
 
-    public BooksController(CommandContext context, Invoker i){
+    public BooksController(CommandContext context, Invoker i, allBooksSubject abs){
         this.context = context;
         this.inv = i;
+        this.abs = abs;
     }
 
     @GetMapping
@@ -42,7 +45,9 @@ public class BooksController {
         AddBookCommand command = new AddBookCommand(context, book);
         inv.setCommand(command);
         inv.execute();
-        return ResponseEntity.status(201).body(command.getCreatedBook());
+        Book created = command.getCreatedBook();
+        abs.add(created);
+        return ResponseEntity.status(201).body(created);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Book> modifyBook(@PathVariable Long id, @RequestBody Book book) {
