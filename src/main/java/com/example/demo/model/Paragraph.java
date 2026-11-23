@@ -1,8 +1,16 @@
 package com.example.demo.model;
 
-public class Paragraph implements Element {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+public class Paragraph extends BaseElement {
     private Long id;
     private String text;
+    @Transient
     private AlignStrategy alignment;
 
     public Paragraph(String text){

@@ -3,17 +3,29 @@ package com.example.demo.commands;
 import com.example.demo.model.Book;
 import com.example.demo.services.BooksService;
 
+import java.util.Optional;
+
 public class UpdateBookCommand implements Command {
-    private BooksService bs;
-    private Long id;
-    private Book b;
-    public UpdateBookCommand(BooksService bs, Long id, Book b){
-        this.bs = bs;
+    private final CommandContext context;
+    private final Long id;
+    private final Book newData;
+    private Book result;
+
+    public UpdateBookCommand(CommandContext context, Long id, Book newData) {
+        this.context = context;
         this.id = id;
-        this.b = b;
+        this.newData = newData;
     }
+
     @Override
-    public void execute(){
-        bs.updateBook(id, b);
+    public void execute() {
+        if (context.getBooksRepository().findById(id).isPresent()) {
+            newData.setId(id);
+            result = context.getBooksRepository().save(newData);
+        }
+    }
+
+    public Optional<Book> getUpdatedBook() {
+        return Optional.ofNullable(result);
     }
 }

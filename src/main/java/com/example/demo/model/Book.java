@@ -1,15 +1,19 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@NoArgsConstructor
 public class Book extends Section{
-    private List<Author> authors;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Author> authors = new ArrayList<>();
 
-    public Book() {}
     public Book(String title){
         super(title);
-        this.authors = new ArrayList<>();
     }
 
     public void render(){

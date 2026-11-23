@@ -1,6 +1,13 @@
 package com.example.demo.model;
 
-public class Table implements Element {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+@jakarta.persistence.Table(name = "E_TABLE")
+public class Table extends BaseElement {
     private Long id;
     private String name;
 

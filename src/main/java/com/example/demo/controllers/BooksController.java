@@ -1,58 +1,66 @@
 package com.example.demo.controllers;
 import com.example.demo.commands.*;
 import com.example.demo.model.Book;
-import com.example.demo.services.BooksService;
+import com.example.demo.persistence.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/books")
 public class BooksController {
-    private BooksService bs;
+    private final CommandContext context;
     private Invoker inv;
 
-    public BooksController(BooksService bs, Invoker i){
-        this.bs = bs;
+    public BooksController(CommandContext context, Invoker i){
+        this.context = context;
         this.inv = i;
     }
 
-    @GetMapping("/books")
+    @GetMapping
     public ResponseEntity<List<Book>> showBooks() {
-        inv.setCommand(new GetBooksCommand(bs));
+        GetBooksCommand command = new GetBooksCommand(context);
+        inv.setCommand(command);
         inv.execute();
-        return ResponseEntity.ok(bs.getAllBooks());
+        return ResponseEntity.ok(command.getBooks());
     }
-    @GetMapping("/books/{id}")
-    public ResponseEntity<Book> showBook(@PathVariable Long id) {
-        Book book = bs.getBook(id);
-        if (book == null) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Book>> showBook(@PathVariable Long id) {
+        GetBookCommand command = new GetBookCommand(context, id);
+        inv.setCommand(command);
+        inv.execute();
+        Optional<Book> book = command.getBook();
+        if (book.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(book);
     }
-    @PostMapping("/books")
-    public ResponseEntity<Book> newBook(@RequestBody Book book) {
-        inv.setCommand(new AddBookCommand(bs, book));
+    @PostMapping
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        AddBookCommand command = new AddBookCommand(context, book);
+        inv.setCommand(command);
         inv.execute();
-        return ResponseEntity.status(201).body(book);
+        return ResponseEntity.status(201).body(command.getCreatedBook());
     }
-    @PutMapping("/books/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Book> modifyBook(@PathVariable Long id, @RequestBody Book book) {
-        if (bs.getBook(id) == null) {
-            return ResponseEntity.notFound().build();
-        }
-        inv.setCommand(new UpdateBookCommand(bs, id, book));
+        UpdateBookCommand command = new UpdateBookCommand(context, id, book);
+        inv.setCommand(command);
         inv.execute();
-        return ResponseEntity.ok(bs.getBook(id));
+        return command.getUpdatedBook()
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
-    @DeleteMapping("/books/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        if (bs.getBook(id) == null) {
+        DeleteBookCommand command = new DeleteBookCommand(context, id);
+        inv.setCommand(command);
+        inv.execute();
+        if (!command.isDeleted()) {
             return ResponseEntity.notFound().build();
         }
-        inv.setCommand(new DeleteBookCommand(bs, id));
-        inv.execute();
         return ResponseEntity.noContent().build();
     }
 }
